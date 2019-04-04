@@ -36,6 +36,8 @@ struct Student
     int Student_id ; // Student id -> 1,2,3,...
     int Age ;
 
+    int Less_Siz ; // Lesson Size
+
     char Name[N_Size] ; // Student Name -> Chris
     char Surname[S_Size] ; // Student Surname -> Abroad
 
@@ -60,13 +62,7 @@ int main()
 
     // --------------------
 
-    int Lesson_Size ; // Total lesson number
-
     int i, j, m ;    // Loop variable
-
-    int Counter = 0 ;
-
-    int L_Size[Student_Size] ;
 
     // --------------------
 
@@ -78,10 +74,10 @@ int main()
         printf("\n") ;
 
         printf(" Please enter %d. Student Name : ",i+1) ;
-        scanf("%s",&(P_1+i)->Name) ;
+        scanf("%s",(P_1+i)->Name) ;
 
         printf(" Please enter %d. Student Surname : ",i+1) ;
-        scanf("%s",&(P_1+i)->Surname) ;
+        scanf("%s",(P_1+i)->Surname) ;
 
         printf("\n") ;
 
@@ -91,13 +87,12 @@ int main()
         system("CLS") ; // Clear
 
         printf(" Please enter %d. Student Total Lesson number : ",i+1) ;
-        scanf("%d",&Lesson_Size) ;
+        scanf("%d",&(P_1+i)->Less_Siz) ;
 
-        (P_1+i)->P_2 = malloc(Lesson_Size*sizeof(struct Lesson)) ;
+        (P_1+i)->P_2 = malloc(((P_1+i)->Less_Siz)*sizeof(struct Lesson)) ;
 
-        L_Size[i] = Lesson_Size ;
 
-        for( j=0 ; j<Lesson_Size ; j++)
+        for( j=0 ; j<(P_1+i)->Less_Siz ; j++)
         {
             system("CLS") ;
 
@@ -105,7 +100,7 @@ int main()
             scanf("%d",&((P_1+i)->P_2+j)-> Lesson_id) ;
 
             printf(" Please enter %d. Student %d. Lesson name : ",i+1,j+1) ;
-            scanf("%s",&((P_1+i)->P_2+j)->Lesson_Name) ;
+            scanf("%s",((P_1+i)->P_2+j)->Lesson_Name) ;
 
             printf(" Please enter %d. Student %d. Lesson credit : ",i+1,j+1) ;
             scanf("%d",&((P_1+i)->P_2+j)->Credit) ;
@@ -131,7 +126,7 @@ int main()
 
         printf("\n ---------- \n\n") ;
 
-        for(j=0 ; j<L_Size[i] ; j++)
+        for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
         {
             if( j== 0 )
             {
@@ -182,7 +177,7 @@ int main()
 
             for( i=0 ; i<Student_Size ; i++ )
             {
-                for( j=0 ; j<L_Size[i] ; j++)
+                for( j=0 ; j<(P_1+i)->Less_Siz ; j++)
                 {
                     if((((P_1+i)->P_2+j)->Lesson_id) == Se_Lesson_id)
                     {
@@ -254,7 +249,7 @@ int main()
 
                             printf("\n ---------- \n\n") ;
 
-                            for(j=0 ; j<L_Size[i] ; j++)
+                            for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
                             {
                                 if( j== 0 )
                                 {
@@ -299,7 +294,7 @@ int main()
 
                             printf("\n ---------- \n\n") ;
 
-                            for(j=0 ; j<L_Size[i] ; j++)
+                            for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
                             {
                                 if( j== 0 )
                                 {
@@ -367,7 +362,7 @@ int main()
 
                                 printf("\n ---------- \n\n") ;
 
-                                for(j=0 ; j<L_Size[i] ; j++)
+                                for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
                                 {
                                     if( j== 0 )
                                     {
