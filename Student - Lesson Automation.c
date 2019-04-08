@@ -73,11 +73,14 @@ int main()
 
         printf("\n") ;
 
+        getchar() ;
         printf(" Please enter %d. Student Name : ",i+1) ;
-        scanf("%s",(P_1+i)->Name) ;
+        //scanf("%s",(P_1+i)->Name) ;
+        gets((P_1+i)->Name) ;
 
         printf(" Please enter %d. Student Surname : ",i+1) ;
-        scanf("%s",(P_1+i)->Surname) ;
+        //scanf("%s",(P_1+i)->Surname) ;
+        gets((P_1+i)->Surname) ;
 
         printf("\n") ;
 
@@ -99,8 +102,10 @@ int main()
             printf(" Please enter %d. Student %d. Lesson id : ",i+1,j+1) ;
             scanf("%d",&((P_1+i)->P_2+j)-> Lesson_id) ;
 
+            getchar() ;
             printf(" Please enter %d. Student %d. Lesson name : ",i+1,j+1) ;
-            scanf("%s",((P_1+i)->P_2+j)->Lesson_Name) ;
+            //scanf("%s",((P_1+i)->P_2+j)->Lesson_Name) ;
+            gets(((P_1+i)->P_2+j)->Lesson_Name) ;
 
             printf(" Please enter %d. Student %d. Lesson credit : ",i+1,j+1) ;
             scanf("%d",&((P_1+i)->P_2+j)->Credit) ;
@@ -229,8 +234,10 @@ int main()
 
             if(Se_Choose == 1)
             {
+                getchar() ;
                 printf(" Please enter Student Name for Search : ") ;
-                scanf("%s",&Se_Name) ;
+                //scanf("%s",&Se_Name) ;
+                gets(Se_Name) ;
 
                 printf("\n ---------- \n\n") ;
 
@@ -272,8 +279,11 @@ int main()
 
             else if (Se_Choose == 2)
             {
+                getchar() ;
                 printf(" Please enter Student Surname for Search : ") ;
-                scanf("%s",&Se_Surname) ;
+                // scanf("%s",&Se_Surname) ;
+                gets(Se_Surname) ;
+
 
                 printf("\n ---------- \n\n") ;
 
@@ -321,11 +331,14 @@ int main()
 
             else if(Se_Choose == 3)
             {
+                getchar() ;
                 printf(" Please enter Student Name for Search : ") ;
-                scanf("%s",&Se_Name) ;
+                //scanf("%s",&Se_Name) ;
+                gets(Se_Name) ;
 
                 printf(" Please enter Student Surname for Search : ") ;
-                scanf("%s",&Se_Surname) ;
+                // scanf("%s",&Se_Surname) ;
+                gets(Se_Surname) ;
 
                 printf("\n ---------- \n\n") ;
 
