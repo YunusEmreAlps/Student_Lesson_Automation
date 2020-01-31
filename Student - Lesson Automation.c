@@ -1,414 +1,299 @@
 // Structure
 
-// Yunus Emre Alpu 17010011005
-
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#define N_Size 20 // Name Size
-#define S_Size 20 // Surname Size
-#define Le_Size 20 // Lesson Name Size
+#define n_len 20 // name length
+#define s_len 20 // surname length
+#define l_len 20 // lesson name length
 
-/*
-   1  - Chris Abroad   19
-
-   15 - Math          3
-   16 - Algorithm     6
-   17 - Electronic    3
-
-*/
-
-struct Lesson
+// ----------
+// structures
+struct lesson
 {
-
-    int Lesson_id ; // Lesson id -> 1,2,3,...
-    int Credit ;    // Lesson credit -> 3,4,5...
-
-    char Lesson_Name[Le_Size] ; // Lesson Name -> Math
-
+    int l_id; // lesson id -> 1,2,3,...
+    int cred; // lesson credit -> 3,4,5...
+    char l_name[l_len]; // lesson name -> Math
+};
+struct student
+{
+    int std_id; // student id -> 1,2,3,...
+    char s_name[n_len]; // student name -> Chris
+    char s_surnm[s_len]; // student surname -> Abroad
+    int age;
+    int tot_les; // total lesson
+    struct lesson *point;
 };
 
-struct Student
-{
+// ----------
+// global variables
+ int i, j, m, t, k; // loop variable
 
-    int Student_id ; // Student id -> 1,2,3,...
-    int Age ;
-
-    int Less_Siz ; // Lesson Size
-
-    char Name[N_Size] ; // Student Name -> Chris
-    char Surname[S_Size] ; // Student Surname -> Abroad
-
-    struct Lesson *P_2 ; // Started address of Lesson structure
-
-};
-
+// ----------
+// main function
 int main()
 {
-    struct Student *P_1 ; // Started address of Student structure
+    struct student *point1; // started address of student structure
+    int s_size; // total student number
 
-    int Student_Size ; // Total student number
+    printf(" ---------------\n");
+    printf(" - Total student number : ");
+    scanf("%d",&s_size);
+    system("CLS");
 
-    // -------------------- Add information Part
+    point1=malloc(s_size*sizeof(struct student)); // dynamic memory allocation
 
-    printf(" Please enter Total student number : ") ;
-    scanf("%d",&Student_Size) ;
-
-    system("CLS") ; // clear page
-
-    P_1 = malloc(Student_Size*sizeof(struct Student)) ; // Dynamic memory allocation
-
-    // --------------------
-
-    int i, j, m ;    // Loop variable
-
-    // --------------------
-
-    for( i=0 ; i<Student_Size ; i++ )
+    for(i=0; i<s_size; i++)
     {
-        printf(" Please enter %d. Student id : ",i+1)  ;
-        scanf("%d",&((P_1+i)->Student_id)) ;
+        printf(" - Enter [%d. student] id : ",i+1);
+        scanf("%d",&((point1+i)->std_id));printf("\n");
+        getchar();
+        printf(" - Enter [%d. student] name : ",i+1);
+        gets((point1+i)->s_name);
+        printf(" - Enter [%d. student] surname : ",i+1);
+        gets((point1+i)->s_surnm);
+        printf("\n");
+        printf(" - Enter [%d. student] age : ",i+1);
+        scanf("%d",&((point1+i)->age));
+        system("CLS");
 
-        printf("\n") ;
+        printf(" - Enter [%d. student] total lesson number : ",i+1);
+        scanf("%d",&(point1+i)->tot_les);
+        (point1+i)->point = malloc(((point1+i)->tot_les)*sizeof(struct lesson));
 
-        getchar() ;
-        printf(" Please enter %d. Student Name : ",i+1) ;
-        //scanf("%s",(P_1+i)->Name) ;
-        gets((P_1+i)->Name) ;
-
-        printf(" Please enter %d. Student Surname : ",i+1) ;
-        //scanf("%s",(P_1+i)->Surname) ;
-        gets((P_1+i)->Surname) ;
-
-        printf("\n") ;
-
-        printf(" Please enter %d. Student Age : ",i+1) ;
-        scanf("%d",&((P_1+i)->Age)) ;
-
-        system("CLS") ; // Clear
-
-        printf(" Please enter %d. Student Total Lesson number : ",i+1) ;
-        scanf("%d",&(P_1+i)->Less_Siz) ;
-
-        (P_1+i)->P_2 = malloc(((P_1+i)->Less_Siz)*sizeof(struct Lesson)) ;
-
-
-        for( j=0 ; j<(P_1+i)->Less_Siz ; j++)
+        for( j=0 ; j<(point1+i)->tot_les ; j++)
         {
-            system("CLS") ;
-
-            printf(" Please enter %d. Student %d. Lesson id : ",i+1,j+1) ;
-            scanf("%d",&((P_1+i)->P_2+j)-> Lesson_id) ;
-
+            system("CLS");
+            printf(" - Enter [%d. student][%d. lesson] id : ",i+1,j+1);
+            scanf("%d",&((point1+i)->point+j)-> l_id);
             getchar() ;
-            printf(" Please enter %d. Student %d. Lesson name : ",i+1,j+1) ;
-            //scanf("%s",((P_1+i)->P_2+j)->Lesson_Name) ;
-            gets(((P_1+i)->P_2+j)->Lesson_Name) ;
-
-            printf(" Please enter %d. Student %d. Lesson credit : ",i+1,j+1) ;
-            scanf("%d",&((P_1+i)->P_2+j)->Credit) ;
-
-            system("CLS") ;
+            printf(" - Enter [%d. student][%d. lesson] name : ",i+1,j+1);
+            gets(((point1+i)->point+j)->l_name);
+            printf(" - Enter [%d. student][%d. lesson] credit : ",i+1,j+1);
+            scanf("%d",&((point1+i)->point+j)->cred);
+            system("CLS");
         }
-
         system("CLS") ;
     }
 
-    // --------------------
-
-    for(i=0 ; i<Student_Size ; i++) // Print all information
+    for(i=0; i<s_size; i++) // print all information
     {
-        printf("\n ---------- \n\n") ;
-
-        if( i== 0 )
+        printf(" ---------------\n");
+        if(i== 0)
         {
-            printf("  Student id - Name - Surname - Age \n") ;
+            printf(" - Student id - Name - Surname - Age \n");
         }
+        printf("\t %d \t %s \t %s \t %d \n",(point1+i)->std_id,(point1+i)->s_name,(point1+i)->s_surnm,(point1+i)->age);
 
-        printf("\t %d \t %s \t %s \t %d \n",(P_1+i)->Student_id,(P_1+i)->Name,(P_1+i)->Surname,(P_1+i)->Age) ;
-
-        printf("\n ---------- \n\n") ;
-
-        for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
+        printf(" ---------------\n");
+        for(j=0; j<(point1+i)->tot_les; j++)
         {
-            if( j== 0 )
+            if(j== 0)
             {
-                printf("  Lesson id - Lesson Name - Lesson Credit \n") ;
+                printf(" - Lesson id - Lesson name - Lesson credit \n");
             }
-
-            printf("\t %d \t %s \t   %d \n",((P_1+i)->P_2+j)->Lesson_id,((P_1+i)->P_2+j)->Lesson_Name,((P_1+i)->P_2+j)->Credit) ;
+            printf("\t %d \t %s \t   %d \n",((point1+i)->point+j)->l_id,((point1+i)->point+j)->l_name,((point1+i)->point+j)->cred);
         }
-
-        printf("\n ---------- \n\n") ;
+         printf(" ---------------\n");
     }
 
-    // --------------------
-
-    int Search ;
+    int srch;
 
     while(1)
     {
+        printf(" ---------------\n");
+        printf(" - 1.) Search of lesson id \n");
+        printf(" - 2.) Search of name and surname \n");
+        printf(" - 3.) Exit \n");
+        printf(" ---------------\n");
 
-        printf(" Search of Lesson id Please press 1 \n") ;
-        printf(" Search of Name and Surname Please press 2 \n") ;
-        printf(" Exit -> Please press 3 \n\n") ;
-
-        printf(" Please enter process number : ") ;
-
-        while(1) // Control
+        printf(" - Enter process number : ");
+        while(1)
         {
-            scanf("%d",&Search) ;
-
-            if((Search == 1)||(Search == 2)||(Search == 3))
-            {
-                break ;
-            }
+            scanf("%d",&srch);
+            if((srch == 1)||(srch == 2)||(srch == 3))
+                break;
         }
+        printf(" ---------------\n");
 
-        // --------------------
-
-        printf("\n ---------- \n\n") ;
-
-
-        if( Search == 1 )
+        if(srch == 1)
         {
-            system("CLS") ;
-            int Se_Lesson_id ; // Lesson id
+            system("CLS");
+            int srch_lid; // lesson id
 
-            printf(" Please enter Lesson id for Search : ") ;
-            scanf("%d",&Se_Lesson_id) ;
+            printf(" - Enter lesson id : ");
+            scanf("%d",&srch_lid);
 
-            for( i=0 ; i<Student_Size ; i++ )
+            for(i=0; i<s_size; i++)
             {
-                for( j=0 ; j<(P_1+i)->Less_Siz ; j++)
+                for(j=0; j<(point1+i)->tot_les; j++)
                 {
-                    if((((P_1+i)->P_2+j)->Lesson_id) == Se_Lesson_id)
+                    if((((point1+i)->point+j)->l_id) == srch_lid)
                     {
-                        printf("\t %d \t %s \t %s \t %d \n",(P_1+i)->Student_id,(P_1+i)->Name,(P_1+i)->Surname,(P_1+i)->Age) ;
+                        printf("\t %d \t %s \t %s \t %d \n",(point1+i)->std_id,(point1+i)->s_name,(point1+i)->s_surnm,(point1+i)->age);
                     }
-
                 }
             }
-
-            printf("\n") ;
+            printf("\n");
         }
-
-
-        else if ( Search == 2 )
+        else if (srch == 2)
         {
-            system("CLS") ;
+            system("CLS");
+            int srch_num;
 
-            int Se_Choose ;
+            printf(" ---------------\n");
+            printf(" - 1.) Search of name \n");
+            printf(" - 2.) Search of surname \n");
+            printf(" - 3.) Search of surname and name \n\n");
+            printf(" ---------------\n");
 
-            printf(" Search of Name Please press 1 \n") ;
-            printf(" Search of Surname Please press 2 \n") ;
-            printf(" Search of Surname and Name Please press 3 \n\n") ;
-
-            printf(" Please enter process number : ") ;
-
-            while(1) // Control
+            printf(" - Enter process number : ");
+            while(1)
             {
-                scanf("%d",&Se_Choose) ;
+                scanf("%d",&srch_num);
 
-                if((Se_Choose == 1)||(Se_Choose == 2)||(Se_Choose == 3))
+                if((srch_num == 1)||(srch_num == 2)||(srch_num == 3))
+                    break;
+            }
+            system("CLS");
+
+            char srch_name[n_len]; // name
+            char srch_surname[s_len] ; // surname
+
+            int flag_name;
+            int nm_size = 0, srnm_size=0;
+
+            if(srch_num == 1)
+            {
+                getchar();
+                printf(" - Enter student name: ");
+                gets(srch_name);
+
+                printf(" ---------------\n");
+                for(i=0; i<s_size; i++)
                 {
-                    break ;
+                    for( t=0 ; t<srch_name[t] ; t++)
+                    {
+                        if(srch_name[t] == (point1+i)->s_name[t])
+                            nm_size++;
+
+                        if(nm_size == strlen((point1+i)->s_name))
+                        {
+                            printf("\t %d \t %s \t %s \t %d \n",(point1+i)->std_id,(point1+i)->s_name,(point1+i)->s_surnm,(point1+i)->age);
+                           printf(" ---------------\n");
+                            for(j=0; j<(point1+i)->tot_les; j++)
+                            {
+                                if(j== 0)
+                                {
+                                    printf(" - Lesson id - Lesson name - Lesson credit \n");
+                                }
+                                printf("\t %d \t %s \t   %d \n",((point1+i)->point+j)->l_id,((point1+i)->point+j)->l_name,((point1+i)->point+j)->cred);
+                            }
+                            printf(" ---------------\n");
+                        }
+                    }
+                    nm_size = 0;
                 }
+
             }
 
-            system("CLS") ;
-            // --------------------
-
-            char Se_Name[N_Size] ;    // Name
-            char Se_Surname[S_Size] ; // Surname
-
-            int t,k ; // Loop variable
-
-            int flag_Name ;  // Control
-
-            int Name_Size = 0, Surname_Size = 0  ;  // Size
-
-
-
-            if(Se_Choose == 1)
+            else if (srch_num == 2)
             {
-                getchar() ;
-                printf(" Please enter Student Name for Search : ") ;
-                //scanf("%s",&Se_Name) ;
-                gets(Se_Name) ;
+                getchar();
+                printf(" - Enter student surname : ");
+                gets(srch_surname);
 
-                printf("\n ---------- \n\n") ;
-
-                for( i=0 ; i<Student_Size ; i++)
+                printf(" ---------------\n");
+                for(i=0; i<s_size; i++)
                 {
-                    for( t=0 ; t<Se_Name[t] ; t++)
+                    for(k=0; k<srch_surname[k]; k++)
                     {
-                        if(Se_Name[t] == (P_1+i)->Name[t])
+                        if(srch_surname[k] == (point1+i)->s_surnm[k])
+                            srnm_size++;
+
+                        if(srnm_size == strlen((point1+i)->s_surnm))
                         {
-                            Name_Size++ ;
-                        }
+                            printf("\t %d \t %s \t %s \t %d \n",(point1+i)->std_id,(point1+i)->s_name,(point1+i)->s_surnm,(point1+i)->age);
+                            printf(" ---------------\n");
 
-                        if(Name_Size == strlen((P_1+i)->Name))
-                        {
-                            printf("\t %d \t %s \t %s \t %d \n",(P_1+i)->Student_id,(P_1+i)->Name,(P_1+i)->Surname,(P_1+i)->Age) ;
-
-                            printf("\n ---------- \n\n") ;
-
-                            for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
+                            for(j=0; j<(point1+i)->tot_les; j++)
                             {
-                                if( j== 0 )
+                                if(j==0)
                                 {
-                                    printf("  Lesson id - Lesson Name - Lesson Credit \n") ;
+                                    printf("  Lesson id - Lesson name - Lesson credit \n");
                                 }
 
-                                printf("\t %d \t %s \t   %d \n",((P_1+i)->P_2+j)->Lesson_id,((P_1+i)->P_2+j)->Lesson_Name,((P_1+i)->P_2+j)->Credit) ;
+                                printf("\t %d \t %s \t   %d \n",((point1+i)->point+j)->l_id,((point1+i)->point+j)->l_name,((point1+i)->point+j)->cred);
                             }
-
-                            printf("\n ---------- \n\n") ;
-
+                            printf(" ---------------\n");
                         }
                     }
-
-                    Name_Size = 0 ;
-
+                    srnm_size = 0;
+                    flag_name = 0;
                 }
-
             }
 
-            else if (Se_Choose == 2)
+            else if(srch_num == 3)
             {
-                getchar() ;
-                printf(" Please enter Student Surname for Search : ") ;
-                // scanf("%s",&Se_Surname) ;
-                gets(Se_Surname) ;
+                getchar();
+                printf(" - Enter student name : ");
+                gets(srch_name);
+                printf(" - Enter student surname : ");
+                gets(srch_surname);
+                printf(" ---------------\n");
 
-
-                printf("\n ---------- \n\n") ;
-
-
-                for( i=0 ; i<Student_Size ; i++)
+                for(i=0; i<s_size; i++)
                 {
-
-                    for( k=0 ; k<Se_Surname[k]; k++)
+                    for(t=0; t<srch_name[t]; t++)
                     {
-                        if(Se_Surname[k] == (P_1+i)->Surname[k])
-                        {
-                            Surname_Size++ ;
-                        }
+                        if(srch_name[t] == (point1+i)->s_name[t])
+                            nm_size++;
 
-                        if(Surname_Size == strlen((P_1+i)->Surname))
-                        {
-                            printf("\t %d \t %s \t %s \t %d \n",(P_1+i)->Student_id,(P_1+i)->Name,(P_1+i)->Surname,(P_1+i)->Age) ;
 
-                            printf("\n ---------- \n\n") ;
+                        if(nm_size == strlen((point1+i)->s_name))
+                            flag_name=1;
 
-                            for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
-                            {
-                                if( j== 0 )
-                                {
-                                    printf("  Lesson id - Lesson Name - Lesson Credit \n") ;
-                                }
-
-                                printf("\t %d \t %s \t   %d \n",((P_1+i)->P_2+j)->Lesson_id,((P_1+i)->P_2+j)->Lesson_Name,((P_1+i)->P_2+j)->Credit) ;
-                            }
-
-                            printf("\n ---------- \n\n") ;
-
-                        }
                     }
+                    nm_size=0;
 
-
-
-                    Surname_Size = 0 ;
-                    flag_Name = 0 ;
-
-                }
-
-            }
-
-
-            else if(Se_Choose == 3)
-            {
-                getchar() ;
-                printf(" Please enter Student Name for Search : ") ;
-                //scanf("%s",&Se_Name) ;
-                gets(Se_Name) ;
-
-                printf(" Please enter Student Surname for Search : ") ;
-                // scanf("%s",&Se_Surname) ;
-                gets(Se_Surname) ;
-
-                printf("\n ---------- \n\n") ;
-
-                for( i=0 ; i<Student_Size ; i++)
-                {
-                    for( t=0 ; t<Se_Name[t] ; t++)
+                    if(flag_name == 1)
                     {
-                        if(Se_Name[t] == (P_1+i)->Name[t])
+                        for(k=0; k<srch_surname[k]; k++)
                         {
-                            Name_Size++ ;
-                        }
+                            if(srch_surname[k] == (point1+i)->s_surnm[k])
+                                srnm_size++ ;
 
-                        if(Name_Size == strlen((P_1+i)->Name))
-                        {
-                            flag_Name = 1 ;
-
-                        }
-                    }
-
-                    Name_Size = 0 ;
-
-                    if(flag_Name == 1)
-                    {
-                        for( k=0 ; k<Se_Surname[k]; k++)
-                        {
-                            if(Se_Surname[k] == (P_1+i)->Surname[k])
+                            if(srnm_size == strlen((point1+i)->s_surnm))
                             {
-                                Surname_Size++ ;
-                            }
+                                printf("\t %d \t %s \t %s \t %d \n",(point1+i)->std_id,(point1+i)->s_name,(point1+i)->s_surnm,(point1+i)->age);
+                                printf(" ---------------\n");
 
-                            if(Surname_Size == strlen((P_1+i)->Surname))
-                            {
-                                printf("\t %d \t %s \t %s \t %d \n",(P_1+i)->Student_id,(P_1+i)->Name,(P_1+i)->Surname,(P_1+i)->Age) ;
-
-                                printf("\n ---------- \n\n") ;
-
-                                for(j=0 ; j<(P_1+i)->Less_Siz ; j++)
+                                for(j=0; j<(point1+i)->tot_les; j++)
                                 {
-                                    if( j== 0 )
+                                    if(j== 0)
                                     {
-                                        printf("  Lesson id - Lesson Name - Lesson Credit \n") ;
+                                        printf("  Lesson id - Lesson name - Lesson credit \n");
                                     }
-
-                                    printf("\t %d \t %s \t   %d \n",((P_1+i)->P_2+j)->Lesson_id,((P_1+i)->P_2+j)->Lesson_Name,((P_1+i)->P_2+j)->Credit) ;
+                                    printf("\t %d \t %s \t   %d \n",((point1+i)->point+j)->l_id,((point1+i)->point+j)->l_name,((point1+i)->point+j)->cred);
                                 }
-
-                                printf("\n ---------- \n\n") ;
-
+                                printf(" ---------------\n");
                             }
                         }
-
                     }
-
-                    Surname_Size = 0 ;
-                    flag_Name = 0 ;
-
+                    srnm_size = 0;
+                    flag_name = 0;
                 }
-
             }
-
         }
 
-        if(Search == 3)
+        if(srch == 3)
         {
-            break ;
+            break;
         }
     }
 
-
-    getch() ;
-    return 0 ;
+    getch();
+    return 0;
 }
-
